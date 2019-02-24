@@ -1,0 +1,59 @@
+<app-loader></app-loader>
+<section class="main layout--center">
+    <div class="main__content layout--wrapped">
+<div class="rant-details layout--center">
+  <section class="post-hero">
+    <div class="post-hero__inner">
+      <div class="score">
+          <app-vote-section [data]="post"></app-vote-section>
+      </div>
+      <div class="post-hero__body">
+        <div class="profile">
+          <div class="profile__picture">
+            <svg height="36" width="36">
+              <circle cx="18" cy="18" r="18" fill="#5c5f6f" />
+            </svg>
+          </div>
+          <div class="profile__name">
+            {{post.author}}
+          </div>
+        </div>
+        <div class="post__details">
+            {{post.content}}
+        </div>
+      </div>
+    </div>
+    <div class="post-hero__footer">
+      <div class="post-hero__delete" *ngIf="isMyPost" (click)="deletePost()">DELETE</div>
+      <div class="post-hero__time">{{post.displayTime}}</div>
+    </div>
+  </section>
+
+  <section class="comments layout--center">
+    <h1 class="comments__title"><span>#</span>Comments</h1>
+
+    <div *ngIf="noComment" class="nocomment" style="color: #d31c41;
+    padding: 0 0 12px 0;
+    text-align: center;
+    width: 100%;
+    font-size: 18px;">
+        No comments added.
+    </div>
+
+    <app-comment *ngFor="let comment of comments" [data]="comment"></app-comment>
+   
+  </section>
+
+  <div class="rant__comment layout--center" title="Comment" (click)="openNewComment()">
+    <svg class="icon" viewBox="0 0 31 32" width="100%" height="100%">
+      <path
+        d="M24.732 24.371v7.629l-7.267-7.267h-8.808c-4.781 
+                  0-8.657-3.875-8.657-8.657v-7.42c0-4.781 3.876-8.657 
+                  8.657-8.657h13.604c4.781 0 8.657 3.875 8.657 8.657v7.42c0 
+                  3.922-2.61 7.23-6.186 8.294z"
+      ></path>
+    </svg>
+  </div>
+</div>
+</div>
+</section>

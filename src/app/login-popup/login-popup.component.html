@@ -1,0 +1,102 @@
+<!-- Start of login popup -->
+<!-- ======================= -->
+<div *ngIf="isOpen">
+  <div class="popup popup--open">
+    <div class="popup__header">
+      <div
+        title="Close"
+        class="close layout--center"
+        (click)="closeLoginPopup()"
+      >
+        X
+      </div>
+    </div>
+    <div class="popup__body layout--center">
+      <div class="popup__body-inner">
+        <div class="form">
+          <div class="form__title">
+            JOIN <span class="highlight">#</span>DEVRANT
+          </div>
+          <div class="form__description">
+            Vote and comment on others' rants. Post your own.
+          </div>
+          <form
+            name="login"
+            [formGroup]="angForm"
+            novalidate
+            (keyup.enter)="keyDownFunction()"
+          >
+            <div class="login">
+              <div class="form-group loginCustom" *ngIf="showInputFeild">
+                <input
+                  type="text"
+                  placeholder="USERNAME"
+                  focus="true"
+                  class="form-control"
+                  formControlName="name"
+                  [(ngModel)]="loginInput.username"
+                />
+              </div>
+
+              <div class="form-group loginCustom" *ngIf="showInputFeild">
+                <input
+                  type="password"
+                  placeholder="PASSWORD"
+                  class="form-control"
+                  formControlName="password"
+                  [(ngModel)]="loginInput.pass"
+                />
+              </div>
+
+              <app-loader></app-loader>
+
+              <div
+                *ngIf="
+                  angForm.controls['name'].invalid &&
+                  (angForm.controls['name'].dirty ||
+                    angForm.controls['name'].touched)
+                "
+              >
+                <div *ngIf="angForm.controls['name'].errors.required">
+                  <div class="form__error">
+                    {{ name_error }}
+                  </div>
+                </div>
+              </div>
+              <div
+                *ngIf="
+                  angForm.controls['password'].invalid &&
+                  (angForm.controls['password'].dirty ||
+                    angForm.controls['password'].touched)
+                "
+              >
+                <div *ngIf="angForm.controls['password'].errors.required">
+                  <div class="form__error">
+                    {{ password_error }}
+                  </div>
+                </div>
+                
+              </div>
+              <div *ngIf="loginFaild">
+                  <div class="form__error">
+                    {{ requestError }}
+                  </div>
+                </div>
+              <div class="loginCustom">
+                <input
+                  type="button"
+                  value="LET ME IN"
+                  (click)="submitClick()"
+                  [disabled]="angForm.pristine || angForm.invalid || isLoading"
+                />
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ======================= -->
+<!-- End of login popup -->
